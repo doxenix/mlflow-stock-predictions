@@ -8,4 +8,4 @@ entry_points:
     main:
         parameters:            
             config: {type:string, default: "0"}
-        command: python3 run.py --config {config}
+        command: python3 pipline.py --config {config}
