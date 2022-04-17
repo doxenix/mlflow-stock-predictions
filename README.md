@@ -5,9 +5,9 @@ Hello and welcome!
 
 I will show you how you can try to predict stock market prices. We'll use mlflow tool. I highly recommend to check official documentation: [MlFlow documentation](https://mlflow.org/docs/latest/index.html).
 
-Mlflow is great MlOps tool which allows you to monitor and experiment with your machine learing models. You can also easly share your created model with others using conda or docker. Finally, you can make deployments and then getting prediciotns via API.
+Mlflow is great MlOps tool which allows you to monitor and experiment with your machine learing models. You can also easly share your created model with others using conda or docker. Finally, you can make deployments and then getting predictions via API.
 
-Keep in mind that is not financial advice!
+Keep in mind is not financial advice!
 
 Setup environment
 ----------------------------------
