@@ -5,33 +5,46 @@ import pandas as pd
 import joblib
 from pipline import get_data
 from mlflow.tracking import MlflowClient
+from params import hyperparams
 
-client = MlflowClient(registry_uri='sqlite:///mlruns.db')
-uri = client.get_model_version_download_uri("model1", version=1)
-uri = uri.split('/')[3]
+hyperparams = hyperparams
 
-scaler = joblib.load(f'mlruns/1/{uri}/artifacts/scaler.pkl')
+CONFIG = [hyperparams]
 
-usd = get_data(sample='100d')
-total_dataset=usd[['Close']]
-usd_test = usd[['Close']].iloc[60:].copy()
-model_inputs=total_dataset[len(total_dataset)-len(usd_test)-60:].values
-model_inputs = model_inputs.reshape(-1, 1)
-model_inputs = scaler.transform(model_inputs)
+def prepare_data_for_predicion(config_idx=0):
+    config = CONFIG[config_idx]
+    client = MlflowClient(registry_uri='sqlite:///mlruns.db')
+    uri = client.get_model_version_download_uri("model1", version=1)
+    uri = uri.split('/')[3]
 
-real_data = [model_inputs[len(model_inputs)-60:len(model_inputs+1), 0]]
-real_data = np.array(real_data)
-real_data=real_data[...,None]
+    scaler = joblib.load(f'mlruns/1/{uri}/artifacts/scaler.pkl')
 
-data = real_data.reshape(1, -1)
+    data = get_data(sample=config.sample)
+    total_dataset=data[['Close']]
+    data_test = data[['Close']].iloc[60:].copy()
+    model_inputs=total_dataset[len(total_dataset)-len(data_test)-60:].values
+    model_inputs = model_inputs.reshape(-1, 1)
+    model_inputs = scaler.transform(model_inputs)
 
-data_json = json.dumps(data.tolist())
-# print(data_json)
-headers = {'Content-Type': 'application/json; format=pandas-records'}
-request_uri = 'http://127.0.0.1:5000/invocations'
+    real_data = [model_inputs[len(model_inputs)-60:len(model_inputs+1), 0]]
+    real_data = np.array(real_data)
+    real_data=real_data[...,None]
+
+    data = real_data.reshape(1, -1)
+    return data, scaler
+
+# data_json = json.dumps(data.tolist())
+
+# headers = {'Content-Type': 'application/json; format=pandas-records'}
+# request_uri = 'http://127.0.0.1:5000/invocations'
 
 
 if __name__ == '__main__':
+    data, scaler = prepare_data_for_predicion()
+    data_json = json.dumps(data.tolist())
+
+    headers = {'Content-Type': 'application/json; format=pandas-records'}
+    request_uri = 'http://127.0.0.1:5000/invocations'
     try:
         response = requests.post(request_uri, data=data_json, headers=headers)
         dict = response.json()

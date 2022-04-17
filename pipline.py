@@ -15,12 +15,12 @@ import yfinance as yf
 from params import hyperparams
 import pickle
 
+import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, LSTM
 from tensorflow.keras.optimizers import Adam
-
-EXP_NAME = 'USD_PLN_daily'
-EXP_ID = 1
+import warnings
+warnings.filterwarnings("ignore")
 
 hyperparams = hyperparams
 
@@ -57,15 +57,14 @@ def modelDNN(input_shape, config_idx=0):
     return (model, "Model 1")
 
 def prepare_train_data(data, config_idx=0):
-
-    usd = data
+    
     config = CONFIG[config_idx]
     
-    split = int(len(usd) * config.data_split)
-    usd_train = usd[['Close']].iloc[:split].copy()
+    split = int(len(data) * config.data_split)
+    data_train = data[['Close']].iloc[:split].copy()
 
     scaler=config.scaler
-    scaled_data=scaler.fit_transform(usd_train.values.reshape(-1,1))
+    scaled_data=scaler.fit_transform(data_train.values.reshape(-1,1))
     prediction_lags = config.lags
 
     x_train=[]
@@ -82,17 +81,16 @@ def prepare_train_data(data, config_idx=0):
 
 def prepare_test_data(data, config_idx=0):
 
-    usd = data
     config = CONFIG[config_idx]
 
-    split = int(len(usd) * config.data_split)
+    split = int(len(data) * config.data_split)
 
-    usd_test = usd[['Close']].iloc[split:].copy()
-    actual_prices=usd_test.values
+    data_test = data[['Close']].iloc[split:].copy()
+    actual_prices=data_test.values
 
-    total_dataset=usd[['Close']]
+    total_dataset=data[['Close']]
 
-    model_inputs=total_dataset[len(total_dataset)-len(usd_test)-config.lags:].values
+    model_inputs=total_dataset[len(total_dataset)-len(data_test)-config.lags:].values
     model_inputs = model_inputs.reshape(-1, 1)
     model_inputs = config.scaler.transform(model_inputs)
 
@@ -156,13 +154,14 @@ def train(model, x_train, y_train, x_test, actual_prices, config_idx=0):
     #save predictions to chart jpg                       
         plt.plot(actual_prices, color = "black", label="Actual Price")
         plt.plot(result, color="green", label="Predicted Price")
-        plt.title("USD_PLN Price")
+        plt.title(f"{config.EXP_NAME} Price")
         plt.xticks([])
         plt.legend()
-        plt.savefig(f'{model_path}/usd_pln_prediction_fig.jpg')
-        mlflow.log_artifact(f'{model_path}/usd_pln_prediction_fig.jpg')
+        plt.savefig(f'{model_path}/{config.EXP_NAME}_prediction_fig.jpg')
+        mlflow.log_artifact(f'{model_path}/{config.EXP_NAME}_prediction_fig.jpg')
 
 def run(config_idx=0):
+    config = CONFIG[config_idx]
     mlflow.set_tracking_uri("sqlite:///mlruns.db")
 
     data = get_data()
@@ -181,7 +180,7 @@ def run(config_idx=0):
     #For each run setup in the following manner to let mlflow know when you
     #train the model.
     
-    with mlflow.start_run(run_name=run_name, experiment_id=EXP_ID) as run:
+    with mlflow.start_run(run_name=run_name, experiment_id=config.EXP_ID) as run:
 
         run_id = run.info.run_uuid
         
