@@ -1,0 +1,11 @@
+name: mlflow-test-project
+
+docker_env:
+    image: mlflow_image:latest
+    volumes: ["/models/:/mlflow/projects/code/models/"]
+
+entry_points:
+    main:
+        parameters:            
+            config: {type:string, default: "0"}
+        command: python3 run.py --config {config}
