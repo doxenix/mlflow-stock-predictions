@@ -1,4 +1,5 @@
 mlruns.db
+oanda.cfg
 /mlruns
 /models
 /__pycache__
