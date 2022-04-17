@@ -1,0 +1,7 @@
+mlflow
+pandas
+numpy
+sklearn
+tensorflow==2.8
+yfinance
+matplotlib
