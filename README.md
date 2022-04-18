@@ -75,7 +75,7 @@ After that you can try running your experiment:
 Bonus
 -------------------
 
-`SMA.py` file requires 'oanda.cfg' file with your API key. You have to create accouunt on [OANDA](https://www.oanda.com/eu-en/).
+`SMA.py` file requires `oanda.cfg` file with your API key. You have to create accouunt on [OANDA](https://www.oanda.com/eu-en/).
 
 Check [OANDA API Guide](https://developer.oanda.com/rest-live-v20/introduction/) how to generate yor API key.
 
