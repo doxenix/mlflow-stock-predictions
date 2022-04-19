@@ -31,11 +31,11 @@ Then create your experiment. I called **USD_PLN_daily**.
 
 Now, check `params.py`. You will find all parameters. Don't hesitate to change and experiment with them!
 
-In another terminal, run: `python pipline.py` and wait. Your model shoud start to train.
+Run: `python pipline.py` and wait. Your model shoud start to train.
 
 Great, you trained your model! You also noticed that you have `mlruns` and `models` folders. Start making some experiments and `pipline.py` as many time as you want!
 
-You can also explore your all models in `Mlflow`. You can also check your result predictions on test data. The plot is available in your folders. You can also check it via **Mlflow** page.
+You can also explore your models in `Mlflow`. Check your result predictions on test data. The plot is available in your folders. You can also check it via **Mlflow** page.
 
 <img src="https://github.com/doxenix/mlflow-stock-predictions/blob/main/readme_screens/USD_PLN_daily_prediction_fig.jpg">
 
