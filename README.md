@@ -23,7 +23,7 @@ Step 1 - Train and Track the model
 launch `mlflow ui --backend-store-uri sqlite:///mlruns.db`
 Got to `http://127.0.0.1:5000`
 
-You can also run just: `mlflow ui` but without add sqlite database (or any other) you will not be able to store your models and push to productions.
+You can also run just: `mlflow ui` but without add sqlite database (or any other) you will not be able to store your models and push to production.
 
 Then create your experiment. I called **USD_PLN_daily**. 
 
