@@ -33,12 +33,6 @@ def prepare_data_for_predicion(config_idx=0):
     data = real_data.reshape(1, -1)
     return data, scaler
 
-# data_json = json.dumps(data.tolist())
-
-# headers = {'Content-Type': 'application/json; format=pandas-records'}
-# request_uri = 'http://127.0.0.1:5000/invocations'
-
-
 if __name__ == '__main__':
     data, scaler = prepare_data_for_predicion()
     data_json = json.dumps(data.tolist())
