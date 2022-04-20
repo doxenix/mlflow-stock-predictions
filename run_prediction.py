@@ -21,12 +21,12 @@ def prepare_data_for_predicion(config_idx=0):
 
     data = get_data(sample=config.sample)
     total_dataset=data[['Close']]
-    data_test = data[['Close']].iloc[60:].copy()
-    model_inputs=total_dataset[len(total_dataset)-len(data_test)-60:].values
+    data_test = data[['Close']].iloc[config.lags:].copy()
+    model_inputs=total_dataset[len(total_dataset)-len(data_test)-config.lags:].values
     model_inputs = model_inputs.reshape(-1, 1)
     model_inputs = scaler.transform(model_inputs)
 
-    real_data = [model_inputs[len(model_inputs)-60:len(model_inputs+1), 0]]
+    real_data = [model_inputs[len(model_inputs)-config.lags:len(model_inputs+1), 0]]
     real_data = np.array(real_data)
     real_data=real_data[...,None]
 
@@ -44,7 +44,7 @@ if __name__ == '__main__':
         dict = response.json()
         pred_value = dict[0]['0']    
         pred_value = scaler.inverse_transform([[pred_value]])
-        print((pred_value))
+        print((pred_value))        
         print('done!!!')
     except Exception as ex:
         raise (ex)
