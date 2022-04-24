@@ -3,7 +3,7 @@
 
 Hello and welcome!
 
-I will show you how you can try to predict stock market prices. We'll use mlflow tool. I highly recommend to check official documentation: [MlFlow documentation](https://mlflow.org/docs/latest/index.html).
+I will show you how you can try to predict stock market prices. We'll use mlflow tool. For more details, check official documentation: [MlFlow documentation](https://mlflow.org/docs/latest/index.html).
 
 Mlflow is great MlOps tool which allows you to monitor and experiment with your machine learing models. You can also easly share your created model with others using conda or docker. Finally, you can make deployments and then getting predictions via API.
 
@@ -14,8 +14,10 @@ Setup environment
 First clone my repo on your computer:
 * `git clone git@github.com:doxenix/mlflow-stock-predictions.git`
 
-We'll work locally, so make sure you already have installed all needed libraries. If you using conda or python 3.6+ just:
-* `pip install -r req.txt`
+We'll work locally, so make sure you already have installed all needed libraries. I recommend using conda environment.
+* Create new conda environment: `create --name myenv`
+* `conda activate myenv`
+* `pip install -r req.txt` (if you got any error during installation try: `pip install -r req.txt --user` or try with `sudo`)
 
 Step 1 - Train and Track the model
 -------------------
@@ -29,9 +31,9 @@ Then create your experiment. I called **USD_PLN_daily**.
 
 <img src="https://github.com/doxenix/mlflow-stock-predictions/blob/main/readme_screens/create_experiment.jpg">
 
-Now, check `params.py`. You will find all parameters. Don't hesitate to change and experiment with them!
+Now, check `params.py`. You will find all parameters. Don't hesitate to change and experiment with them! Be aware, your created experiment name and ID should be the same like in `params.py` file.
 
-Run: `python pipline.py` and wait. Your model shoud start to train.
+Run: `python pipline.py` and wait. Your model shoud start to train. 
 
 Great, you trained your model! You also noticed that you have `mlruns` and `models` folders. Start making some experiments and `pipline.py` as many time as you want!
 
