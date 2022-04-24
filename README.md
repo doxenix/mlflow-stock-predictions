@@ -55,12 +55,12 @@ Then, go to **Models** tab, click on your model and push to production stage.
 Step 3 - Deploy and make predictions
 -------------------
 
-Run `./deploy.sh`
+Open new bash terminal and run `bash deploy.sh`. Your model name inside this scrpit must be the same you used in **Step 2**.
 
 This launches a gunicorn server serving at the localhost `127.0.0.1:5000`. Now you can score locally
 on the deployed produciton model as a REST point.
  
-From another terminal send a POST request with our fresh data
+From another terminal with your activated conda env, send a POST request with our fresh data:
   * ```python run_prediction.py```
 
 Inside your terminal you will see predicted price.
@@ -77,7 +77,7 @@ After that you can try running your experiment:
 Bonus
 -------------------
 
-`SMA.py` script requires `oanda.cfg` file with your API key. You have to create accouunt on [OANDA](https://www.oanda.com/eu-en/).
+`SMA.py` script requires `oanda.cfg` file with your API key. You have to create account on [OANDA](https://www.oanda.com/eu-en/).
 
 Check [OANDA API Guide](https://developer.oanda.com/rest-live-v20/introduction/) how to generate yor API key.
 
