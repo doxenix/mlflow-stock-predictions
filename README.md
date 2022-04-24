@@ -35,7 +35,7 @@ Now, check `params.py`. You will find all parameters. Don't hesitate to change a
 
 Run: `python pipline.py` and wait. Your model shoud start to train. 
 
-Great, you trained your model! You also noticed that you have `mlruns` and `models` folders. Start making some experiments and `pipline.py` as many time as you want!
+Great, you trained your model! You also noticed that you have `mlruns` and `models` folders. Start making experiments as many time as you want!
 
 You can also explore your models in `Mlflow`. Check your result predictions on test data. The plot is available in your folders. You can also check it via **Mlflow** page.
 
