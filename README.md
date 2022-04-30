@@ -33,7 +33,7 @@ Then create your experiment. I called **USD_PLN_daily**.
 
 Now, check `params.py`. You will find all parameters. Don't hesitate to change and experiment with them! Be aware, your created experiment name and ID should be the same like in `params.py` file.
 
-Run: `python pipline.py` and wait. Your model shoud start to train. 
+Run: `python pipeline.py` and wait. Your model shoud start to train. 
 
 Great, you trained your model! You also noticed that you have `mlruns` and `models` folders. Start making experiments as many time as you want!
 
